@@ -1,13 +1,12 @@
-﻿using Microsoft.Azure.WebJobs;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Azure.Core;
+using Azure.Identity;
+using Microsoft.Extensions.Azure;
 
 namespace WebJob1
 {
@@ -15,18 +14,29 @@ namespace WebJob1
     internal class Program
     {
 
-            static async Task Main()
-            {
+        static async Task Main()
+        {
+            var credential = new DefaultAzureCredential();
 
             var builder = new HostBuilder();
                 builder.ConfigureLogging((context, b) =>
                 {
                     b.AddConsole();
-                    b.SetMinimumLevel(LogLevel.Trace);
+                    b.SetMinimumLevel(LogLevel.Information);
                 });
                 builder.ConfigureAppConfiguration(b =>
                 {
                     b.AddJsonFile("appsettings.json");
+                });
+                builder.ConfigureServices(services =>
+                {
+                    services.AddSingleton <TokenCredential> (credential);
+                    services.AddAzureClients(b =>
+                    {
+                        b.UseCredential(credential).AddBlobServiceClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"));
+
+                        Console.WriteLine("Credential used: " + credential.ToString());
+                    });
                 });
                 builder.ConfigureWebJobs(b =>
                 {
@@ -40,7 +50,7 @@ namespace WebJob1
                 {
                     await host.RunAsync();
                 }
-            }
+        }
        
     }
 }
