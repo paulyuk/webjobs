@@ -22,10 +22,11 @@ namespace WebJob1
                 builder.ConfigureLogging((context, b) =>
                 {
                     b.AddConsole();
+                    b.SetMinimumLevel(LogLevel.Trace);
                 });
-                builder.ConfigureAppConfiguration(cb =>
+                builder.ConfigureAppConfiguration(b =>
                 {
-                    cb.AddJsonFile("appsettings.json");
+                    b.AddJsonFile("appsettings.json");
                 });
                 builder.ConfigureWebJobs(b =>
                 {
