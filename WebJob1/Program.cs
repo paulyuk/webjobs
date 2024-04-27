@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Extensions.Azure;
+using System.Runtime.Remoting.Contexts;
 
 namespace WebJob1
 {
@@ -21,6 +22,13 @@ namespace WebJob1
             var builder = new HostBuilder();
                 builder.ConfigureLogging((context, b) =>
                 {
+                    // If the key exists in settings, use it to enable Application Insights.
+                    string instrumentationKey = context.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
+                    if (!string.IsNullOrEmpty(instrumentationKey))
+                    {
+                        b.AddApplicationInsightsWebJobs(o => o.InstrumentationKey = instrumentationKey);
+                    }
+
                     b.AddConsole();
                     b.SetMinimumLevel(LogLevel.Information);
                 });

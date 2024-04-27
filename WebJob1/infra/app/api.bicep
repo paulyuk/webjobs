@@ -10,6 +10,7 @@ param appServicePlanId string
 param appSettings object = {}
 param keyVaultName string
 param serviceName string = 'api'
+param storageAccountName string
 
 module api '../core/host/appservice.bicep' = {
   name: '${name}-app-module'
@@ -25,6 +26,7 @@ module api '../core/host/appservice.bicep' = {
     keyVaultName: keyVaultName
     netFrameworkVersion: 'v4.0'
     scmDoBuildDuringDeployment: false
+    storageAccountName: storageAccountName
   }
 }
 
