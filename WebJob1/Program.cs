@@ -46,13 +46,16 @@ namespace WebJob1
                         Console.WriteLine("Connection string: " + conn);
 
                         b.UseCredential(credential).AddBlobServiceClient(conn);
+                        b.UseCredential(credential).AddQueueServiceClient(conn);
 
                         Console.WriteLine("Credential used: " + credential.ToString());
                     });
                 });
                 builder.ConfigureWebJobs(b =>
                 {
+                    b.AddAzureStorageBlobs();
                     b.AddAzureStorageQueues();
+
                 });
 
 
