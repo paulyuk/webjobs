@@ -64,11 +64,11 @@ namespace WebJob1
                     //});
 
                 });
-                //builder.ConfigureWebJobs(b =>
-                //    {
-                //        b.AddAzureStorageBlobs();
-                //        b.AddAzureStorageQueues();
-                //    });
+                builder.ConfigureWebJobs(b =>
+                {
+                    b.AddAzureStorageBlobs();
+                    b.AddAzureStorageQueues();
+                });
 
 
 
