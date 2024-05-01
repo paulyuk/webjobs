@@ -56,9 +56,9 @@ namespace WebJob1
                 });
                 builder.ConfigureWebJobs(b =>
                 {
+                    b.AddAzureStorageCoreServices();
                     b.AddAzureStorageBlobs();
                     b.AddAzureStorageQueues();
-
                 });
 
 
