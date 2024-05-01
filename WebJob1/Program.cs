@@ -34,7 +34,7 @@ namespace WebJob1
                 });
                 builder.ConfigureAppConfiguration(b =>
                 {
-                    //b.AddJsonFile("appsettings.json");
+                    b.AddJsonFile("appsettings.json");
                     b.AddEnvironmentVariables();
                 });
                 builder.ConfigureServices(services =>
