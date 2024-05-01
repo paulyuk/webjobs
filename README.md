@@ -24,23 +24,23 @@ setx AzureWebJobsStorage__queueServiceUri "UseDevelopmentStorage=true"
 
 Mac/Linux
 ```Bash
-export AzureWebJobsStorage__blobServiceUri "https://stwebjobfriday1.blob.core.windows.net/"
-export AzureWebJobsStorage__queueServiceUri "https://stwebjobfriday1.queue.core.windows.net/"
+export AzureWebJobsStorage__blobServiceUri "UseDevelopmentStorage=true"
+export AzureWebJobsStorage__queueServiceUri "UseDevelopmentStorage=true"
 ```
 
 ### Using Azure Storage with Managed Identity
-If you do not have an Azure storage account yet, you can run `azd provision` first which will create all the resources and set the IAM RBAC roles that will be assigned to the managed identity of the app and of your developer machine session. 
+If you do not have an Azure storage account yet, you can run `azd provision` first which will create all the resources and set the IAM RBAC roles that will be assigned to the managed identity of the app and of your developer machine session. Note you need to replace `MYACCOUNTNAME` with the lowercase name of your storage account.
 
 Windows
 ```PowerShell
-setx AzureWebJobsStorage__blobServiceUri "https://stwebjobfriday1.blob.core.windows.net/"
-setx AzureWebJobsStorage__queueServiceUri "https://stwebjobfriday1.queue.core.windows.net/"
+setx AzureWebJobsStorage__blobServiceUri "https://MYACCOUNTNAME.blob.core.windows.net/"
+setx AzureWebJobsStorage__queueServiceUri "https://MYACCOUNTNAME.queue.core.windows.net/"
 ```
 
 Mac/Linux
 ```Bash
-export AzureWebJobsStorage__blobServiceUri "https://stwebjobfriday1.blob.core.windows.net/"
-export AzureWebJobsStorage__queueServiceUri "https://stwebjobfriday1.queue.core.windows.net/"
+export AzureWebJobsStorage__blobServiceUri "https://MYACCOUNTNAME.blob.core.windows.net/"
+export AzureWebJobsStorage__queueServiceUri "https://MYACCOUNTNAME.queue.core.windows.net/"
 ```
 
 ## Running the app
