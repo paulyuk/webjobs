@@ -34,7 +34,7 @@ namespace WebJob1
                 });
                 builder.ConfigureAppConfiguration(b =>
                 {
-                    b.AddJsonFile("appsettings.json");
+                    //b.AddJsonFile("appsettings.json");
                     b.AddEnvironmentVariables();
                 });
                 builder.ConfigureServices(services =>
@@ -43,7 +43,10 @@ namespace WebJob1
                     services.AddAzureClients(b =>
                     {
                         var bconn = Environment.GetEnvironmentVariable("AzureWebJobsStorage__blobServiceUri");
+                        Console.WriteLine("Blob connection string: " + bconn);
+
                         var qconn = Environment.GetEnvironmentVariable("AzureWebJobsStorage__queueServiceUri");
+                        Console.WriteLine("Queue connection string: " + qconn);
 
                         b.UseCredential(credential).AddBlobServiceClient(bconn);
                         b.UseCredential(credential).AddQueueServiceClient(qconn);
