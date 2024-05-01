@@ -43,10 +43,10 @@ namespace WebJob1
                     services.AddAzureClients(b =>
                     {
                         var bconn = Environment.GetEnvironmentVariable("AzureWebJobsStorage__blobServiceUri");
-                        Console.WriteLine("Blob connection string: " + bconn);
+                        Console.WriteLine("Blob connection URI: " + bconn);
 
                         var qconn = Environment.GetEnvironmentVariable("AzureWebJobsStorage__queueServiceUri");
-                        Console.WriteLine("Queue connection string: " + qconn);
+                        Console.WriteLine("Queue connection URI: " + qconn);
 
                         b.UseCredential(credential).AddBlobServiceClient(bconn);
                         b.UseCredential(credential).AddQueueServiceClient(qconn);
