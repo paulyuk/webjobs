@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.WebJobs;
+using Microsoft.Extensions.Logging;
 using System.IO;
 
 namespace WebJob1
@@ -7,9 +8,9 @@ namespace WebJob1
     {
         // This function will get triggered/executed when a new message is written 
         // on an Azure Queue called queue.
-        public static void ProcessQueueMessage([QueueTrigger("queue", Connection = "AzureWebJobsStorage")] string message, TextWriter log)
+        public static void ProcessQueueMessage([QueueTrigger("queue", Connection = "AzureWebJobsStorage")] string message, ILogger logger)
         {
-            log.WriteLine(message);
+            logger.LogInformation($"Message: {message}");
         }
     }
 }
