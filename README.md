@@ -12,6 +12,36 @@ docker run -d -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azu
 3. [Microsoft Azure Storage Explorer](https://storageexplorer.com)
 4. Connect to local emulator connection in Storage Explorer -> Queues -> Add Queue container named `queue`
 5. [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=winget-windows%2Cbrew-mac%2Cscript-linux&pivots=os-windows)
+6. Currently Appsettings.json does not work to initialize on .NET 4.x which is needed to use a real Azure storage account with managed idenity, so we recommend running directly using environment variables set on your OS.  Run the following in a terminal before starting your app or IDE.  
+
+### Using Azurite local emulator
+
+Windows
+```PowerShell
+setx AzureWebJobsStorage__blobServiceUri "UseDevelopmentStorage=true"
+setx AzureWebJobsStorage__queueServiceUri "UseDevelopmentStorage=true"
+```
+
+Mac/Linux
+```Bash
+export AzureWebJobsStorage__blobServiceUri "https://stwebjobfriday1.blob.core.windows.net/"
+export AzureWebJobsStorage__queueServiceUri "https://stwebjobfriday1.queue.core.windows.net/"
+```
+
+### Using Azure Storage with Managed Identity
+If you do not have an Azure storage account yet, you can run `azd provision` first which will create all the resources and set the IAM RBAC roles that will be assigned to the managed identity of the app and of your developer machine session. 
+
+Windows
+```PowerShell
+setx AzureWebJobsStorage__blobServiceUri "https://stwebjobfriday1.blob.core.windows.net/"
+setx AzureWebJobsStorage__queueServiceUri "https://stwebjobfriday1.queue.core.windows.net/"
+```
+
+Mac/Linux
+```Bash
+export AzureWebJobsStorage__blobServiceUri "https://stwebjobfriday1.blob.core.windows.net/"
+export AzureWebJobsStorage__queueServiceUri "https://stwebjobfriday1.queue.core.windows.net/"
+```
 
 ## Running the app
 ### Visual Studio
@@ -39,7 +69,7 @@ To make a simple .zip deployment package (useful for Portal and CI/CD):
 azd package
 ```
 
-To provision all Azure resources:
+To provision all Azure resources with configuration:
 ```bash
 azd provision
 ```

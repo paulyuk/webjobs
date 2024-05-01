@@ -42,11 +42,11 @@ namespace WebJob1
                     services.AddSingleton <TokenCredential> (credential);
                     services.AddAzureClients(b =>
                     {
-                        var conn = Environment.GetEnvironmentVariable("AzureWebJobsStorage__accountName"); // TODO: how to load env var before builder.Build()?
-                        Console.WriteLine("Connection string: " + conn);
+                        var bconn = Environment.GetEnvironmentVariable("AzureWebJobsStorage__blobServiceUri");
+                        var qconn = Environment.GetEnvironmentVariable("AzureWebJobsStorage__queueServiceUri");
 
-                        b.UseCredential(credential).AddBlobServiceClient(conn);
-                        b.UseCredential(credential).AddQueueServiceClient(conn);
+                        b.UseCredential(credential).AddBlobServiceClient(bconn);
+                        b.UseCredential(credential).AddQueueServiceClient(qconn);
 
                         Console.WriteLine("Credential used: " + credential.ToString());
                     });
