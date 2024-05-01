@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Extensions.Azure;
-using System.Runtime.Remoting.Contexts;
 
 namespace WebJob1
 {
