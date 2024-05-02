@@ -4,7 +4,7 @@ name: WebJob1
 metadata:
     template: webjobs@1.0.0
 services:
-    WebJob1:
+    api:
         project: .
         host: appservice
         language: csharp
