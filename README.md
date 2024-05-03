@@ -59,11 +59,6 @@ Using a new Terminal window:
 
 ### AZD (RECOMMENDED, uses infrastructure as code)
 
-To provision and deploy simply:
-```bash
-azd up
-```
-
 To make a simple .zip deployment package (useful for Portal and CI/CD):
 ```bash
 azd package
@@ -74,10 +69,6 @@ To provision all Azure resources with configuration:
 azd provision
 ```
 
-To incrementally deploy .zip
-```bash
-azd deploy
-```
 
 ### Visual Studio
 1. Download the Feature Flags extension and install it (Required for VS version < 17.11)
