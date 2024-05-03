@@ -103,8 +103,19 @@ var queueReaderRoleDefinitionId  = '19e7f393-937e-4f77-808e-94535e297925' // Sto
 var queueProcessorRoleDefinitionId  = '8a0f0c08-91a1-4084-bc3d-661d67233fed' // Storage Queue Data Message Processor role
 
 // Allow access from API to storage account using a managed identity and least priv Storage roles
-module blobStorageRoleAssignment './app/storage-access.bicep' = {
-  name: 'blobStorageRoleAssignment'
+module blobStorageRoleAssignmentSelf './app/storage-access.bicep' = {
+  name: 'blobStorageRoleAssignmentSelf'
+  scope: rg
+  params: {
+    storageAccountName: storage.outputs.name
+    roleDefinitionID: blobStorageRoleDefinitionId
+    principalID: principalId
+  }
+}
+
+// Allow access from API to storage account using a managed identity and least priv Storage roles
+module blobStorageRoleAssignmentApp './app/storage-access.bicep' = {
+  name: 'blobStorageRoleAssignmentApp'
   scope: rg
   params: {
     storageAccountName: storage.outputs.name
@@ -114,8 +125,19 @@ module blobStorageRoleAssignment './app/storage-access.bicep' = {
 }
 
 // Allow access from API to storage account using a managed identity and least priv Storage roles
-module queueReaderRoleAssignment './app/storage-access.bicep' = {
-  name: 'queueReaderRoleAssignment'
+module queueReaderRoleAssignmentSelf './app/storage-access.bicep' = {
+  name: 'queueReaderRoleAssignmentSelf'
+  scope: rg
+  params: {
+    storageAccountName: storage.outputs.name
+    roleDefinitionID: queueReaderRoleDefinitionId
+    principalID: principalId
+  }
+}
+
+// Allow access from API to storage account using a managed identity and least priv Storage roles
+module queueReaderRoleAssignmentApp './app/storage-access.bicep' = {
+  name: 'queueReaderRoleAssignmentApp'
   scope: rg
   params: {
     storageAccountName: storage.outputs.name
@@ -125,8 +147,19 @@ module queueReaderRoleAssignment './app/storage-access.bicep' = {
 }
 
 // Allow access from API to storage account using a managed identity and least priv Storage roles
-module queueProcessorRoleAssignment './app/storage-access.bicep' = {
-  name: 'queueProcessorRoleAssignment'
+module queueProcessorRoleAssignmentSelf './app/storage-access.bicep' = {
+  name: 'queueProcessorRoleAssignmentSelf'
+  scope: rg
+  params: {
+    storageAccountName: storage.outputs.name
+    roleDefinitionID: queueProcessorRoleDefinitionId
+    principalID: principalId
+  }
+}
+
+// Allow access from API to storage account using a managed identity and least priv Storage roles
+module queueProcessorRoleAssignmentApp './app/storage-access.bicep' = {
+  name: 'queueProcessorRoleAssignmentApp'
   scope: rg
   params: {
     storageAccountName: storage.outputs.name
