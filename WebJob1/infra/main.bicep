@@ -51,6 +51,10 @@ module api './app/api.bicep' = {
     appServicePlanId: appServicePlan.outputs.id
     keyVaultName: keyVault.outputs.name
     appSettings: {
+        APPINSIGHTS_INSTRUMENTATIONKEY : monitoring.outputs.applicationInsightsInstrumentationKey
+        APPLICATIONINSIGHTS_CONNECTION_STRING : monitoring.outputs.applicationInsightsConnectionString
+        AzureWebJobsStorage__blobServiceUri : storage.outputs.primaryEndpoints.blob
+        AzureWebJobsStorage__queueServiceUri : storage.outputs.primaryEndpoints.queue
     }
     storageAccountName: storage.outputs.name
   }
