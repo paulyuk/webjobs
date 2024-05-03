@@ -102,17 +102,12 @@ var blobStorageRoleDefinitionId  = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe' // Sto
 var queueReaderRoleDefinitionId  = '19e7f393-937e-4f77-808e-94535e297925' // Storage Queue Data Reader role
 var queueProcessorRoleDefinitionId  = '8a0f0c08-91a1-4084-bc3d-661d67233fed' // Storage Queue Data Message Processor role
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' existing = {
-  name: storageAccountName
-  scope: rg
-}
-
 // Allow access from API to storage account using a managed identity and least priv Storage roles
 module blobStorageRoleAssignment './app/storage-access.bicep' = {
   name: 'blobStorageRoleAssignment'
   scope: rg
   params: {
-    storageAccountID: storageAccount.id
+    storageAccountName: storage.outputs.name
     roleDefinitionID: blobStorageRoleDefinitionId
     principalID: api.outputs.SERVICE_API_IDENTITY_PRINCIPAL_ID
   }
@@ -123,7 +118,7 @@ module queueReaderRoleAssignment './app/storage-access.bicep' = {
   name: 'queueReaderRoleAssignment'
   scope: rg
   params: {
-    storageAccountID: storageAccount.id
+    storageAccountName: storage.outputs.name
     roleDefinitionID: queueReaderRoleDefinitionId
     principalID: api.outputs.SERVICE_API_IDENTITY_PRINCIPAL_ID
   }
@@ -134,15 +129,10 @@ module queueProcessorRoleAssignment './app/storage-access.bicep' = {
   name: 'queueProcessorRoleAssignment'
   scope: rg
   params: {
-    storageAccountID: storageAccount.id
+    storageAccountName: storage.outputs.name
     roleDefinitionID: queueProcessorRoleDefinitionId
     principalID: api.outputs.SERVICE_API_IDENTITY_PRINCIPAL_ID
   }
-}
-
-resource appService 'Microsoft.Web/sites@2020-06-01' existing = {
-  name: api.name
-  scope: rg
 }
 
 // Store secrets in a keyvault
